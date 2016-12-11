@@ -1,0 +1,58 @@
+
+<div style="padding-left: 20px; text-align: center;" ng-controller="usuarioController" >
+	<h1 style="text-align: center;">Cadastro de Usu&aacute;rios</h1>
+	<br/> 
+
+ 
+	<div class="row" >  
+		<form class="form-inline" style="text-align: center;">
+	    	<div class="form-group col-lg-4 ">  
+	    	</div>
+	    	<div class="form-group col-lg-3 ">  
+			      <input type="text" size="50" class="form-control input-normal"  placeholder="Pesquisar" id="os" ng-model="usuarioPesquisa"  ng-keypress="pesquisar($event)"/>
+		    </div>
+		     
+	    	<div class="form-group col-lg-1 "  >    
+			  <button id="pesquisar" type="button" class="btn btn-default"  ng-click="consultar()" style="overflow: hidden; padding-right: .5em;">Pesquisar</button>
+			</div>
+	    </form>
+	</div>
+	<br/>
+	<div class="row" style="text-align: center; padding-left: 5em; padding-right: 5em;" >  
+			<table id="tabela" class="table table-striped">
+				<thead>
+					<th>Nome</th>
+					<th>Usu&aacute;rio</th> 
+					<th>Adm</th> 
+					<th> </th>
+				</thead>
+				<tbody>
+					<tr ng-repeat="usuario in usuarios | startFrom:currentPage*pageSize | limitTo:pageSize">
+						<td class="linhaTabela" style="text-align: left;">{{ usuario.nome }}</td>
+						<td class="linhaTabela" style="text-align: left;">{{ usuario.userName }}</td> 
+						<td class="linhaTabela" style="text-align: left;"> <input type="checkbox" ng-disabled="true" ng-model="usuario.admin" ></td> 
+						<td style="text-align: right;">  
+							    <button type="button" class="btn btn-success" ng-click="editar(usuario)">
+							      <span class="glyphicon glyphicon-pencil"></span> Editar
+							    </button>  
+						</td> 
+
+					</tr>
+				</tbody>
+			</table>  
+			    <button type="button" class="btn btn-default" aria-label="Left Align" ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">
+				  <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+				</button>
+			    
+			    <span  aria-hidden="true">{{currentPage+1}}</span> / <span  aria-hidden="true">{{numberOfPages()}}</span>  
+ 
+			    
+			    <button type="button" class="btn btn-default" aria-label="Left Align" ng-disabled="currentPage >= usuarios.length/pageSize - 1" ng-click="currentPage=currentPage+1">
+				  <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+				</button>
+	</div>
+
+	<div class="row" >  
+	  <button id="nome" type="button" class="btn btn-lg btn-primary"  ng-click="novo()"  >Novo</button>
+	</div>
+</div>

@@ -1,0 +1,152 @@
+ <div style="padding-left: 20px;" ng-controller="ordemDeServicoController" >
+	<h1 style="text-align: center;">Ordem de Servi&ccedil;o</h1>
+	<br/>  
+		<form>   
+  				<div class="row form-group"> 
+					 <div class="col-sm-2"> 
+						    <label for="os">Ordem de Servi&ccedil;o </label>
+						    <input type="text" class="form-control" id="os"   ng-disabled="true"  ng-model="ordemDeServico.id" >
+				     </div> 
+					 <div class="col-sm-2"> 
+						    <label for="os">Data </label> 
+							<input type="text" id="inicio" size="3" ng-model="dataEmissao"  ng-disabled="true" class="data form-control"  > 
+				     </div> 
+			     </div>
+				
+				
+  				<div class="row form-group"> 
+					 <div class="col-sm-4"  > 
+					   	  <label for="clienteConsultaBt" >Cliente</label>
+					    <div id="clienteConsultaBt" class="input-group" >
+					      <span class="input-group-btn">
+					        <button class="btn btn-default" type="button"   data-toggle="modal" data-target="#md-consultaCliente" >
+	            				  <span class="glyphicon glyphicon-user"></span></button>
+					      </span>
+					      <input type="text" id="clienteConsulta" ng-disabled="true"  ng-model="clienteSelecionado.nome" class="form-control" placeholder="Cliente...">
+					    </div>  
+				     </div>
+				     
+					 <div class="col-sm-2">
+						    <label for="modelo">Modelo</label>
+						    <input type="text" class="form-control" id="modelo" placeholder="Modelo" ng-model="ordemDeServico.modelo" >
+				     </div> 
+				     
+					 <div class="col-sm-2">
+						    <label for="prefixo">Prefixo</label>
+						    <input type="text" class="form-control" id="prefixo" placeholder="Prefixo" ng-model="ordemDeServico.prefixo" >
+				     </div> 
+				</div>
+  				<div class="row form-group"> 
+					 <div class="col-sm-8">
+						    <label for="descricao">Descri&ccedil;&atilde;o</label>
+						    <input type="text" class="form-control" id="prefixo" placeholder="Descri&ccedil;&atilde;o" ng-model="ordemDeServico.descricao" >
+				     </div> 
+			    </div>
+				
+				<div class="row" style="text-align: center; padding-left: 5em; padding-right: 5em;" >  
+				<table id="tabela" class="table table-striped" >
+					<thead>
+						<th>Ordem de Servico</th> 
+						<th>Cliente</th> 
+						<th> </th>
+					</thead>
+					<tbody>
+						<tr ng-repeat="ordemDeServico in ordemDeServicos | startFrom:currentPage*pageSize | limitTo:pageSize">
+							<td style="text-align: left;">{{ ordemDeServico.id }}</td> 
+							<td style="text-align: left;">{{ ordemDeServico.cliente.nome }}</td> 
+							<td style="text-align: right;">  
+								    <button type="button" class="btn btn-success" ng-click="editar(cliente)">
+								      <span class="glyphicon glyphicon-pencil"></span> Editar
+								    </button>  
+							</td> 
+	
+						</tr>
+					</tbody>
+				</table>   
+			</div>
+				
+  				<div class="row form-group" style="padding-left: 1em;">  
+					<button type="button" class="btn  btn-default"  ng-click="novo()">Novo</button>
+					<button type="button" class="btn  btn-primary" ng-click="salvar()" >Salvar</button>
+					<button type="button" class="btn  btn-danger"   data-toggle="modal" data-target="#md-exluir"  ng-show="ordemDeServico.id != null">Excluir</button>
+					<button type="button" class="btn  btn-default"  ng-click="voltar()" >Consultar</button>   
+				</div>   
+		</form>
+   		
+			<div class="bd-confirmarExcluir" >						 
+				 <div class="modal fade" id="md-exluir"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"  data-backdrop="static" data-keyboard="false" >
+				    <div class="modal-dialog modal-sm" role="document">
+				      <div class="modal-content">
+				        <div class="modal-header">
+				          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				            <span aria-hidden="true">&times;</span>
+				          </button>
+				          <h4 class="modal-title"  >Excluir</h4>
+				        </div>
+				        <div class="modal-body">
+				          <h4 class="modal-title"  >Desenja Realmente Excluir a Ordem de Servico Nro: {{ordemDeServico.id}}</h4>
+				           
+				        </div>
+				        <div class="modal-footer">
+				          <button type="button" class="btn  btn-default" ng-click="cancelarSenha()" data-dismiss="modal">Cancelar</button>
+				          <button type="button" class="btn btn-danger" ng-click="excluir()">Excluir</button>
+				        </div>
+				      </div>
+				    </div>
+				  </div>
+			</div>
+			
+	
+			<div class="bd-consultaCliente" >						 
+				 <div class="modal fade" id="md-consultaCliente"  tabindex="-1" role="dialog" aria-labelledby="consultaClienteLabel" aria-hidden="true"  data-backdrop="static" data-keyboard="false" >
+				    <div class="modal-dialog modal-lg" role="document">
+				      <div class="modal-content">
+				        <div class="modal-header">
+				          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				            <span aria-hidden="true">&times;</span>
+				          </button>
+				          <h4 class="modal-title"  >Consulta Clientes</h4>
+				        </div>
+				        <div class="modal-body">
+				         
+								<div class="row" >  
+									<form class="form-inline" style="text-align: center;">
+								    	<div class="form-group col-lg-4 ">  
+								    	</div>
+								    	<div class="form-group col-lg-3 ">  
+										      <input type="text"  class="form-control input-normal"  placeholder="Pesquisar" id="os" ng-model="clientePesquisa" ng-keypress="pesquisarCliente($event)"/>
+									    </div>
+									     
+								    	<div class="form-group col-lg-1 "  >    
+										    <button id="pesquisar" type="button" class="btn btn-default"  ng-click="consultarCliente()" style="overflow: hidden; padding-right: .5em;">Pesquisar</button>
+										</div>
+								    </form>
+								</div> 
+								<div class="row" style="text-align: center; padding-left: 5em; padding-right: 5em;" >  
+									<table id="tabela" class="table table-striped">
+										<thead>
+											<th>Nome</th> 
+											<th> </th>
+										</thead>
+										<tbody>
+											<tr ng-repeat="cliente in clientes | startFrom:currentPagePesquisa*pageSize | limitTo:pageSize">
+												<td style="text-align: left;">{{ cliente.nome }}</td> 
+												<td style="text-align: right;">  
+													    <button type="button" class="btn btn-success" ng-click="selecionarCliente(cliente)" >
+													      <span class="glyphicon glyphicon-pencil"></span> Selecionar
+													    </button>  
+												</td> 
+						
+											</tr>
+										</tbody>
+									</table>    
+							</div>
+				        </div>
+				        <div class="modal-footer">
+				          <button type="button" class="btn  btn-default"  data-dismiss="modal">Cancelar</button> 
+				        </div>
+				      </div>
+				    </div>
+				  </div>
+			</div>
+</div>

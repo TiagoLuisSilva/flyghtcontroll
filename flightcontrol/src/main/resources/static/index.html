@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt" >
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1"> 
+<title>Flight Control</title>
+ 
+
+<!-- Custom CSS --> 
+<link rel="stylesheet" 	href="css/datepicker.css" />
+<link rel="stylesheet"  href="css/style.css" />
+<link rel="stylesheet" href="webjars/bootstrap/3.3.5/css/bootstrap.min.css"> 
+ 
+ 	<!-- TODO Usar as Libs locais --> 
+  
+	
+    <script type="text/javascript" src="webjars/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript" src="webjars/bootstrap/3.3.5/js/bootstrap.min.js"></script>	
+ 
+	<script src="webjars/angularjs/1.5.9/angular.min.js"></script>
+	<script src="webjars/angularjs/1.5.9/angular-route.js"></script> 
+  
+	<script src="js/ui-bootstrap-tpls-2.3.1.min.js"></script>	 
+	<script src="js/bootstrap-datepicker.js"></script>	 
+	<script src="js/jquery.maskedinput.min.js"></script> 
+	<script src="js/notification.js"></script>
+	
+	<script src="scripts/app.js"></script> 
+	<script src="scripts/controllers/usuarioController.js"></script> 
+	<script src="scripts/controllers/clienteController.js"></script> 
+	<script src="scripts/controllers/ordemDeServicoController.js"></script> 
+ 
+</head>
+
+<body ng-app="flightcontroll" ng-controller="mainController">
+
+	<div ng-include="header.url"></div>
+
+	<div ng-view ></div>
+
+</body>
+<script type="text/javascript">
+
+
+</script> 
+</html>

@@ -1,0 +1,79 @@
+ <div style="padding-left: 20px;" ng-controller="clienteController" >
+	<h1 style="text-align: center;">Cadastro de Clientes</h1>
+	<br/>  
+		<form>  
+  				<div class="row form-group"> 
+					 <div class="col-sm-4"> 
+						    <label for="nome">Nome</label>
+						    <input type="text" class="form-control" id="nome" placeholder="Nome" ng-model="cliente.nome" />
+				     </div>  
+					 <div class="col-sm-2"> 
+						    <label for="tipoPessoa">Pessoa</label>
+					      <select class="form-control" ng-model="cliente.tipoPessoa" id="tipoPessoa"  ng-disabled="cliente.id != null" ng-change="alterarTipoPessoa()" >
+							  <option value="PF">Pessoa F&iacute;sica</option>
+							  <option value="PJ">Pessoa Jur&iacute;dica</option> 
+						  </select>
+				     </div>  
+					 <div class="col-sm-2"  ng-show="exibePf"   > 
+						    <label for="cpf">CPF</label>
+						    <input type="text" class="form-control cpf" id="cpf" placeholder="CPF"  ng-disabled="habilitaEditarPessoa()"  ng-model="cliente.cpfCnpj"/>
+				     </div>  
+					 <div class="col-sm-2" ng-show="exibePj"> 
+						    <label for="cnpj">CNPJ</label>
+						    <input type="text" class="form-control cnpj" id="cnpj" placeholder="CNPJ"  ng-disabled="cliente.id != null"  ng-model="cliente.cpfCnpj"     />
+				     </div>  
+				</div>
+  				<div class="row form-group"> 
+					 <div class="col-sm-4"> 
+						    <label for="endereco">Endereco</label>
+						    <input type="text" class="form-control" id="endereco" placeholder="Endereco" ng-model="cliente.endereco"  />
+				     </div>  
+					 <div class="col-sm-2"> 
+						    <label for="numero">N&uacute;mero</label>
+						    <input type="text" class="form-control" id="numero" placeholder="N&uacute;mero" ng-model="cliente.numero"  />
+				     </div>  
+					 <div class="col-sm-2"> 
+						    <label for="Bairro">Bairro</label>
+						    <input type="text" class="form-control" id="bairo" placeholder="Bairro" ng-model="cliente.bairro"  />
+				     </div>  
+					 <div class="col-sm-1"> 
+						    <label for="cep">Cep</label>
+						    <input type="text" class="form-control cep" id="cep" placeholder="Cep" ng-model="cliente.cep"  />
+				     </div> 
+					 <div class="col-sm-2"> 
+						    <label for="cidade">Cidade</label>
+						    <input type="text" class="form-control" id="cidade" placeholder="Cidade" ng-model="cliente.cidade"  />
+				     </div>  
+				</div>  
+				
+  				<div class="row form-group" style="padding-left: 1em;">  
+					<button type="button" class="btn  btn-default"  ng-click="novo()">Novo</button>
+					<button type="button" class="btn  btn-primary" ng-click="salvar()" >Salvar</button>
+					<button type="button" class="btn  btn-danger"   data-toggle="modal" data-target="#md-exluir"  ng-show="cliente.id != null">Excluir</button>
+					<button type="button" class="btn  btn-default"  ng-click="voltar()" >Consultar</button>   
+				</div>   
+		</form>
+   		
+			<div class="bd-confirmarExcluir" >						 
+				 <div class="modal fade" id="md-exluir"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"  data-backdrop="static" data-keyboard="false" >
+				    <div class="modal-dialog modal-sm" role="document">
+				      <div class="modal-content">
+				        <div class="modal-header">
+				          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				            <span aria-hidden="true">&times;</span>
+				          </button>
+				          <h4 class="modal-title"  >Excluir</h4>
+				        </div>
+				        <div class="modal-body">
+				          <h4 class="modal-title"  >Desenja Realmente Excluir o Cliente: {{cliente.nome}}</h4>
+				           
+				        </div>
+				        <div class="modal-footer">
+				          <button type="button" class="btn  btn-default" ng-click="cancelarSenha()" data-dismiss="modal">Cancelar</button>
+				          <button type="button" class="btn btn-danger" ng-click="excluir()">Excluir</button>
+				        </div>
+				      </div>
+				    </div>
+				  </div>
+			</div>
+</div>

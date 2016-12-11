@@ -1,0 +1,136 @@
+
+<div style="padding-left: 20px; text-align: center;" ng-controller="ordemDeServicoController" >
+	<h1 style="text-align: center;">Ordem de Servi&ccedil;o</h1>
+	<br/> 
+
+ 
+	<div class="row" >  
+		<form class="form-horizontal" >
+	     
+  
+ 			<div class="row form-group center_div" style="padding-left: 5em;" >   
+ 			 
+				 <div class="col-sm-4"  > 
+				   	  <label for="clienteConsultaBt" >Cliente</label>
+				    <div id="clienteConsultaBt" class="input-group" >
+				      <span class="input-group-btn">
+				        <button class="btn btn-default" type="button"   data-toggle="modal" data-target="#md-consultaCliente" >
+            				  <span class="glyphicon glyphicon-user"></span></button>
+				      </span>
+				      <input type="text" id="clienteConsulta" ng-disabled="true"  ng-model="clienteSelecionado.nome" class="form-control" placeholder="Cliente...">
+				    </div>  
+			     </div>
+				 <div class="col-sm-2" > 
+					    <label for="inicio" >Data Inicio</label>
+						<input type="text" id="inicio" size="3" ng-model="dataInicio"   class="data form-control"  > 
+			     </div> 
+			      
+				 <div class="col-sm-2" > 
+					    <label for="final">Data Final</label>
+						<input type="text" id="final" size="3"	ng-model="dataFinal"  class="data form-control"  >  
+				  		
+			     </div> 
+				 <div class="col-sm-1" style="padding-top: 0.4em;"   > 
+					   <br/>
+				       <button type="button" class="btn btn-default btn-md" ng-click="consultar()" >
+				            Consultar
+			          </button>
+				 </div>
+			        	
+			</div>
+	 
+	    </form>
+	</div>
+	<br/>
+	<div class="row" style="text-align: center; padding-left: 5em; padding-right: 5em;" >  
+			<table id="tabela" class="table table-striped">
+				<thead>
+					<th>Ordem de Servico</th> 
+					<th>Cliente</th> 
+					<th> </th>
+				</thead>
+				<tbody>
+					<tr ng-repeat="ordemDeServico in ordemDeServicos | startFrom:currentPage*pageSize | limitTo:pageSize">
+						<td style="text-align: left;">{{ ordemDeServico.id }}</td> 
+						<td style="text-align: left;">{{ ordemDeServico.cliente.nome }}</td> 
+						<td style="text-align: right;">  
+							    <button type="button" class="btn btn-success" ng-click="editar(cliente)">
+							      <span class="glyphicon glyphicon-pencil"></span> Editar
+							    </button>  
+						</td> 
+
+					</tr>
+				</tbody>
+			</table>   
+			    <button type="button" class="btn btn-default" aria-label="Left Align" ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">
+				  <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+				</button>
+			    
+			    <span  aria-hidden="true">{{currentPage+1}}</span> / <span  aria-hidden="true">{{numberOfPages()}}</span>  
+ 
+			    
+			    <button type="button" class="btn btn-default" aria-label="Left Align" ng-disabled="currentPage >= ordemDeServicos.length/pageSize - 1" ng-click="currentPage=currentPage+1">
+				  <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+				</button>
+	</div>
+ 
+	<div class="row" >  
+	<br/>
+	  <button id="nome" type="button" class="btn btn-lg btn-primary"  ng-click="novo()"  >Novo</button>
+	</div>
+	
+	
+			<div class="bd-consultaCliente" >						 
+				 <div class="modal fade" id="md-consultaCliente"  tabindex="-1" role="dialog" aria-labelledby="consultaClienteLabel" aria-hidden="true"  data-backdrop="static" data-keyboard="false" >
+				    <div class="modal-dialog modal-lg" role="document">
+				      <div class="modal-content">
+				        <div class="modal-header">
+				          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				            <span aria-hidden="true">&times;</span>
+				          </button>
+				          <h4 class="modal-title"  >Consulta Clientes</h4>
+				        </div>
+				        <div class="modal-body">
+				         
+								<div class="row" >  
+									<form class="form-inline" style="text-align: center;">
+								    	<div class="form-group col-lg-4 ">  
+								    	</div>
+								    	<div class="form-group col-lg-3 ">  
+										      <input type="text"  class="form-control input-normal"  placeholder="Pesquisar" id="os" ng-model="clientePesquisa" ng-keypress="pesquisarCliente($event)"/>
+									    </div>
+									     
+								    	<div class="form-group col-lg-1 "  >    
+										    <button id="pesquisar" type="button" class="btn btn-default"  ng-click="consultarCliente()" style="overflow: hidden; padding-right: .5em;">Pesquisar</button>
+										</div>
+								    </form>
+								</div> 
+								<div class="row" style="text-align: center; padding-left: 5em; padding-right: 5em;" >  
+									<table id="tabela" class="table table-striped">
+										<thead>
+											<th>Nome</th> 
+											<th> </th>
+										</thead>
+										<tbody>
+											<tr ng-repeat="cliente in clientes | startFrom:currentPagePesquisa*pageSize | limitTo:pageSize">
+												<td style="text-align: left;">{{ cliente.nome }}</td> 
+												<td style="text-align: right;">  
+													    <button type="button" class="btn btn-success" ng-click="selecionarCliente(cliente)" >
+													      <span class="glyphicon glyphicon-pencil"></span> Selecionar
+													    </button>  
+												</td> 
+						
+											</tr>
+										</tbody>
+									</table>    
+							</div>
+				        </div>
+				        <div class="modal-footer">
+				          <button type="button" class="btn  btn-default"  data-dismiss="modal">Cancelar</button> 
+				        </div>
+				      </div>
+				    </div>
+				  </div>
+			</div>
+	
+</div>
